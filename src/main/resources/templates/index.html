@@ -1,0 +1,9 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout/navbar}">
+<div layout:fragment="main_section">
+    <h1>User: </h1>
+    <h1 th:text="${user.getFullName()}"></h1>
+
+</div>

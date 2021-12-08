@@ -1,0 +1,23 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/navbar}">
+<div layout:fragment="main_section">
+    <div class="row">
+        <div class="col-sm-6 offset-3">
+            <div class="alert alert-danger" role="alert" th:if="${param.error}">
+                Login or password is incorrect
+            </div>
+            <form th:action="@{auth}" method="post">
+                <div class="mb-3">
+                    <label for="inputEmail" class="form-label">Email address</label>
+                    <input type="email" name="email" class="form-control" id="inputEmail" required>
+                </div>
+                <div class="mb-3">
+                    <label for="inputPassword" class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" id="inputPassword">
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+</div>
