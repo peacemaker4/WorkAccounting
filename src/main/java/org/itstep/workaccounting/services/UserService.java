@@ -10,12 +10,16 @@ import java.util.List;
 public interface UserService extends UserDetailsService {
     DbUser getUser(String email);
 
+    DbUser getUser(Long id);
+
     DbUser updateUser(DbUser user);
 
     boolean deleteUser(Long id);
 
     List<DbUser> getUsers();
 
-    List<DbUser> getUsersPaged(int currentPage, int length, Role role);
+    List<DbUser> getUsersPaged(int currentPage, int length);
+
+    DbUser registerUser(DbUser dbUser);
 }
 

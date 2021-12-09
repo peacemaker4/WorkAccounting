@@ -4,6 +4,9 @@ import org.itstep.workaccounting.entities.DbUser;
 import org.itstep.workaccounting.entities.Role;
 import org.itstep.workaccounting.repositories.UserRepo;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,6 +39,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public DbUser getUser(Long id) {
+        return userRepository.findDbUserById(id);
+    }
+
+    @Override
     public DbUser updateUser(DbUser user) {
         return null;
     }
@@ -47,12 +55,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<DbUser> getUsers() {
-        return null;
+        return userRepository.findAll();
     }
 
     @Override
-    public List<DbUser> getUsersPaged(int currentPage, int length, Role role) {
-        return null;
+    public List<DbUser> getUsersPaged(int currentPage, int length) {
+        Pageable paging = PageRequest.of(currentPage, length);
+
+        Page<DbUser> pagedResult = userRepository.findAll(paging);
+
+        return pagedResult.getContent();
     }
 
     @Override
@@ -65,5 +77,15 @@ public class UserServiceImpl implements UserService {
         else{
             return null;
         }
+    }
+
+    @Override
+    public DbUser registerUser(DbUser dbUser) {
+        DbUser checkDbUser = userRepository.findDbUserByEmail(dbUser.getEmail());
+        if (Objects.isNull(checkDbUser)) {
+            dbUser.setPassword(passwordEncoder().encode(dbUser.getPassword()));
+            return userRepository.save(dbUser);
+        }
+        return null;
     }
 }

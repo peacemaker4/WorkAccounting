@@ -11,17 +11,7 @@ public class UserModel {
 
     private String password;
 
-    public String getEmail() {
-        return email;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
+    private String role;
 
 }
 

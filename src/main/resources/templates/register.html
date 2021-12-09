@@ -1,0 +1,42 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/navbar}"
+>
+<div layout:fragment="main_section">
+
+    <div class="row">
+        <div class="col-sm-6 offset-3">
+            <div class="alert alert-danger" role="alert" th:if="${(param.error != null) and (param.error[0]=='1')}">
+                Password and Confirm Password are not the same
+            </div>
+            <div class="alert alert-danger" role="alert" th:if="${(param.error != null) and (param.error[0]=='2')}">
+                User with this email is already exists
+            </div>
+            <form th:action="@{register}" th:object="${userModel}" method="post">
+                <div class="mb-3">
+                    <label for="inputEmail" class="form-label">Email address</label>
+                    <input type="email" th:field="*{email}" name="email" class="form-control" id="inputEmail" required>
+                </div>
+                <div class="mb-3">
+                    <label for="inputFullName" class="form-label">Full name</label>
+                    <input type="text" th:field="*{fullName}" name="fullName" class="form-control" id="inputFullName" required>
+                </div>
+                <div class="mb-3">
+                    <label for="inputPassword" class="form-label">Password</label>
+                    <input type="password" th:field="*{password}" name="password" class="form-control" id="inputPassword">
+                </div>
+                <div class="mb-3">
+                    <label for="selectRole" class="form-label">Role</label>
+                    <select id="selectRole" class="form-select" aria-label="Default select example" name="role">
+                        <option value="ROLE_USER" selected>User</option>
+                        <option value="ROLE_MANAGER">Manager</option>
+                        <option value="ROLE_ADMIN">Administrator</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-success" th:text="Register"></button>
+            </form>
+        </div>
+    </div>
+
+</div>

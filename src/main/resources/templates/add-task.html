@@ -1,0 +1,38 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/navbar}"
+>
+<div layout:fragment="main_section">
+
+    <div class="row">
+        <div class="col-sm-6 offset-3">
+            <div class="alert alert-danger" role="alert" th:if="${(param.error)}">
+                Something went wrong
+            </div>
+            <form th:action="@{add-task}" th:object="${taskModel}" method="post">
+                <div class="mb-3">
+                    <label for="inputEmail" class="form-label">Title</label>
+                    <input type="text" th:field="*{name}" name="name" class="form-control" id="inputEmail" required>
+                </div>
+                <div class="mb-3">
+                    <span class="input-group-text">Description</span>
+                    <textarea class="form-control" th:field="*{description}" aria-label="Description"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="selectProject" class="form-label">Project</label>
+                    <select  id="selectProject" class="form-select" aria-label="Default select example" name="project_id" >
+                        <option th:each="prj : ${projects}" th:value="${prj.id}" th:text="${prj.name} + ' [' + ${prj.id} + ']'"></option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="selectUser" class="form-label">User</label>
+                    <select  id="selectUser" class="form-select" aria-label="Default select example" name="user_id" >
+                        <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.fullName} + ' [' + ${user.id} + ']'"></option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" th:text="Add"></button>
+            </form>
+        </div>
+    </div>
+
+</div>

@@ -2,8 +2,176 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="https://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout/navbar}">
+<head>
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+</head>
 <div layout:fragment="main_section">
-    <h1>User: </h1>
-    <h1 th:text="${user.getFullName()}"></h1>
+
+    <div class="head">
+        <img class="image" th:src="@{/images/user.png}" alt="user photo">
+        <span class="title">Учет рабочего времени</span>
+    </div>
+    <div class="dropdown" sec:authorize="hasRole('MANAGER')">
+        <select>
+            <option>Пользователь </option>
+            <option>Админ </option>
+            <option>Менеджер </option>
+        </select>
+    </div>
+    <p th:text="${user.getFullName()}" sec:authorize="!hasRole('MANAGER')"></p>
+    <hr>
+    <button class="btn btn-outline-success"> Посмотреть персональную статистику</button>
+    <span class="calendar">
+    <label for="start">Сегодня:</label>
+    <input type="date" id="start" name="trip-start"
+           value="2019-12-10"
+           min="2000-01-01" max="2099-12-31">
+    </span>
+    <form class="search">
+        <input class="lookfor" type="text" placeholder="Search">
+
+    </form>
+    <div class="table">
+        <table>
+            <tr>
+                <th>№</th>
+                <th>Проект</th>
+                <th>Задача</th>
+                <th>Дедлайн</th>
+                <th>Тип работы</th>
+                <th>07</th>
+                <th>08</th>
+                <th>09</th>
+                <th>10</th>
+                <th>11</th>
+                <th>12</th>
+                <th>13</th>
+                <th>14</th>
+                <th>15</th>
+                <th>16</th>
+                <th>17</th>
+                <th>18</th>
+                <th>19</th>
+                <th>20</th>
+                <th>21</th>
+                <th>22</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Проект 1</td>
+                <td>Задача1</td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Проект 1</td>
+                <td>Задача2</td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Проект 2</td>
+                <td>Задача1</td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Проект 2</td>
+                <td>Задача2</td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Проект 2</td>
+                <td>Задача3</td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+            </tr>
+        </table>
+    </div>
 
 </div>

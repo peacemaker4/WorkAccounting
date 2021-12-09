@@ -26,9 +26,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/css/**", "/js/**").permitAll()
-                .antMatchers("/").hasRole("USER").and()
-                //.antMatchers("/swagger-ui/**").hasRole("ADMIN").and()
-                .csrf().disable();
+                .antMatchers("/").hasRole("USER")
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/swagger-ui/**").hasRole("ADMIN")
+                .and().csrf().disable();
 
         http.formLogin().loginPage("/login").permitAll()
                 .loginProcessingUrl("/auth").permitAll()

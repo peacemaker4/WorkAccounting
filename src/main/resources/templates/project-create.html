@@ -1,0 +1,26 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/navbar}"
+>
+<div layout:fragment="main_section">
+
+    <div class="row">
+        <div class="col-sm-6 offset-3">
+            <div class="alert alert-danger" role="alert" th:if="${(param.error)}">
+                Something went wrong
+            </div>
+            <form th:action="@{project-create}" th:object="${workProjectModel}" method="post">
+                <div class="mb-3">
+                    <label for="inputEmail" class="form-label">Title</label>
+                    <input type="text" th:field="*{name}" name="name" class="form-control" id="inputEmail" required>
+                </div>
+                <div class="mb-3">
+                    <span class="input-group-text">Description</span>
+                    <textarea class="form-control" th:field="*{description}" aria-label="Description"></textarea>
+                </div>
+                <button type="submit" class="btn btn-success" th:text="Create"></button>
+            </form>
+        </div>
+    </div>
+
+</div>
