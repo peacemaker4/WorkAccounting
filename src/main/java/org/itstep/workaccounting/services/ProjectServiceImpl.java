@@ -2,6 +2,7 @@ package org.itstep.workaccounting.services;
 
 import org.hibernate.jdbc.Work;
 import org.itstep.workaccounting.entities.DbUser;
+import org.itstep.workaccounting.entities.Task;
 import org.itstep.workaccounting.entities.WorkProject;
 import org.itstep.workaccounting.repositories.WorkProjectRepo;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -33,4 +34,5 @@ public class ProjectServiceImpl implements ProjectService {
     public WorkProject getProject(Long id) {
         return workProjectRepository.findWorkProjectById(id);
     }
+
 }

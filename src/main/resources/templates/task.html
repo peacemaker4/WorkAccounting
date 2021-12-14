@@ -1,0 +1,44 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/navbar}">
+<div layout:fragment="main_section">
+    <link rel="stylesheet" th:href="@{/css/index-style.css}" type="text/css">
+
+    <div class="alert alert-danger" role="alert" th:if="${(param.error != null) and (param.error[0]=='1')}">
+        Время выполнения задачи накладывается на время другой
+    </div>
+
+    <h1 class="task1" th:text="${task.name}"></h1>
+    <p class="tagname" th:text="${task.project.name}"></p>
+    <p>
+        <input class="place" type="text" th:field="${task.description}" style="font-weight: bold" readonly>
+    </p>
+
+
+    <form th:action="@{/tasks/{id}(id=${task.id})}" th:object="${taskModel}" method="post">
+        <span class="time_zone"> С
+    <input type="time" name="time_from" min="07:00" max="22:00" th:value="${taskModel?.time_from}" required>
+    По
+    <input type="time" name="time_to" min="07:00" max="22:00" th:value="${taskModel?.time_to}" required>
+     </span>
+        <br>
+        <label for="selectWorkType" class="form-label">Тип работы</label>
+        <select id="selectWorkType" class="form-select" aria-label="Default select example" name="jobType">
+            <option>Анализ</option>
+            <option>Написание кода</option>
+            <option>Планирование</option>
+            <option>Тестирование</option>
+        </select>
+        <p>
+            <input class="comment" type="text" name="comment" placeholder="Комментарий" th:value="${taskModel?.comment}">
+        </p>
+        <span class="validation_ok">
+            <button class="button-1" type="submit"> Ok</button>
+        </span>
+        <span class="decline">
+            <a class="button-1" th:href="@{/}"> Отмена</a>
+        </span>
+    </form>
+
+
+</div>

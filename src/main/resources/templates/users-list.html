@@ -6,8 +6,8 @@
 <h1 th:text="'Users amount: ' + ${usersCount}"></h1>
     <nav aria-label="Page navigation" >
         <ul class="pagination">
-            <li class="page-item"><a class="page-link" th:href="@{'/admin/users-list?pageNO='+${pageNO - 1}}" th:if="${pageNO>0}">Previous</a></li>
-            <li class="page-item"><a class="page-link" th:href="@{'/admin/users-list?pageNO='+${pageNO + 1}}" th:if="${usersCount > (pageSize*(pageNO+1))}">Next</a></li>
+            <li class="page-item"><a class="page-link" th:href="@{'/admin/users?pageNO='+${pageNO - 1}}" th:if="${pageNO>0}">Previous</a></li>
+            <li class="page-item"><a class="page-link" th:href="@{'/admin/users?pageNO='+${pageNO + 1}}" th:if="${usersCount > (pageSize*(pageNO+1))}">Next</a></li>
         </ul>
     </nav>
 

@@ -1,0 +1,36 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/navbar}">
+<div layout:fragment="main_section">
+    <link rel="stylesheet" th:href="@{/css/index-style.css}" type="text/css">
+
+    <h1 class="stats">Персональная статистика</h1>
+    <form th:action="@{/users/{id}/stats(id=${user.id})}" method="post">
+        <input type="date" id="start" name="date"
+               th:value="${date}"
+               min="2000-01-01" max="2099-12-31">
+        <button class="btn btn-outline-info">Find</button>
+    </form>
+    <div class="table">
+        <table>
+            <tr>
+                <th>№</th>
+                <th>Проект</th>
+                <th>Задача</th>
+                <th>Время работы сегодня</th>
+                <th>Общее время работы</th>
+                <th>Статус задачи</th>
+            </tr>
+            <tr th:each="task, iter : ${tasks}">
+                <td th:text="${iter.index}+1"></td>
+                <td th:text="${task?.project.name}"></td>
+                <td th:text="${task?.name}"></td>
+                <td th:text="${task?.getTaskDescription(date)} != null ? (${task?.getTaskDescription(date)?.time_to?.getHour() - task?.getTaskDescription(date)?.time_from?.getHour()}) : 'None'"> </td>
+                <td th:text="${task?.getTaskTime(date)}"> </td>
+                <td th:text="${task?.status}"> </td>
+            </tr>
+        </table>
+    </div>
+
+
+</div>

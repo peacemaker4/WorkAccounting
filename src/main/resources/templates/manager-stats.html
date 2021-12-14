@@ -1,0 +1,63 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/navbar}"
+>
+<div layout:fragment="main_section">
+    <link rel="stylesheet" th:href="@{/css/index-style.css}" type="text/css">
+
+    <div>
+        <h1 class="stats">Персональная статистика</h1>
+    </div>
+
+
+    <div class="accordion" id="accordionPanelsStayOpenExample">
+        <div class="accordion-item" th:each="d : ${dictionary}">
+            <h2 class="accordion-header" th:id="'panelsStayOpen-heading' + ${d.key.getId()}">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" th:data-bs-target="'#panelsStayOpen-collapse' + ${d.key.getId()}" aria-expanded="true" th:aria-controls="'panelsStayOpen-collapse' + ${d.key.getId()}">
+                    <span class="tasks" th:text="'Задачи по проекту ' + ${d.key.name} + ':'"></span>
+                </button>
+            </h2>
+            <div th:id="'panelsStayOpen-collapse'+ ${d.key.getId()}" class="accordion-collapse collapse show" th:aria-labelledby="'panelsStayOpen-heading' + ${d.key.getId()}">
+                <div class="accordion-body">
+                    <div class="container-fluid">
+                        <span class="all">всего: <input th:value="${d.value.size()}" size="1" readonly> </span>
+                        <span  class="all">выполнено</span>
+                        <span class="all">%выполнения:</span>
+                        <form class="input-group mb-3" th:action="@{/managers/{id}/stats(id=${user.getId()})}" method="post">
+                            <input type="date" id="start" name="date"
+                                   th:value="${date}"
+                                   min="2000-01-01" max="2099-12-31">
+                            <button class="btn btn-outline-info"><i class="fas fa-search"></i></button>
+                        </form>
+                    </div>
+
+                    <div>
+                        <table>
+                            <tr>
+                                <th>№</th>
+                                <th>Пользователь</th>
+                                <th>Задача</th>
+                                <th>Срок выполнения</th>
+                                <th>Время работы сегодня</th>
+                                <th>Общее время работы</th>
+                                <th>Статус задачи</th>
+                            </tr>
+                            <tr th:each="task, iter : ${d.value}">
+                                <td th:text="${iter.index} + 1"></td>
+                                <td th:text="${task?.getUser()?.getFullName()}"></td>
+                                <td th:text="${task?.name}"></td>
+                                <td th:text="${task?.deadline}"></td>
+                                <td th:text="${task?.getTaskDescription(date)} != null ? (${task?.getTaskDescription(date)?.time_to?.getHour() - task?.getTaskDescription(date)?.time_from?.getHour()}) : 'None'"></td>
+                                <td th:text="${task?.getTaskTime(date)}"></td>
+                                <td th:text="${task?.status}"></td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

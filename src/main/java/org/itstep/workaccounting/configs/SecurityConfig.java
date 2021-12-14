@@ -27,6 +27,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/css/**", "/js/**").permitAll()
                 .antMatchers("/").hasRole("USER")
+                .antMatchers("/tasks/**").hasRole("USER")
+                .antMatchers("/users/**").hasRole("USER")
+                .antMatchers("/managers/**").hasRole("MANAGER")
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/swagger-ui/**").hasRole("ADMIN")
                 .and().csrf().disable();

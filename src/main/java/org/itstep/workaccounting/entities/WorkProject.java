@@ -20,13 +20,4 @@ public class WorkProject extends BaseEntity {
 
     private String description;
 
-    public WorkProject(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Task> tasks;
-
-
 }

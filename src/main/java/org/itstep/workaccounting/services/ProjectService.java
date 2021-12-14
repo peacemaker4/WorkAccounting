@@ -1,6 +1,7 @@
 package org.itstep.workaccounting.services;
 
 import org.itstep.workaccounting.entities.DbUser;
+import org.itstep.workaccounting.entities.Task;
 import org.itstep.workaccounting.entities.WorkProject;
 
 import java.util.List;
@@ -11,4 +12,5 @@ public interface ProjectService {
     List<WorkProject> getProjects();
 
     WorkProject getProject(Long id);
+
 }

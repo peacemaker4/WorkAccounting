@@ -1,0 +1,30 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/navbar}">
+<div layout:fragment="main_section">
+    <link rel="stylesheet" th:href="@{/css/index-style.css}" type="text/css">
+
+    <h1 class="task1" th:text="${task.name}"></h1>
+    <p class="tagname" th:text="${task.project.name}"></p>
+    <p>
+        <input class="place" type="text" th:field="${task.description}" style="font-weight: bold" readonly>
+    </p>
+
+
+    <form th:action="@{/tasks/{id}(id=${task.id})}" th:object="${taskModel}" method="post">
+        <span class="time_zone"> С
+    <input type="time" name="time_from" min="07:00" max="22:00" th:value="${taskModel?.time_from}" readonly>
+    По
+    <input type="time" name="time_to" min="07:00" max="22:00" th:value="${taskModel?.time_to}" readonly>
+     </span>
+        <br>
+        <label for="selectWorkType" class="form-label">Тип работы</label>
+        <input id="selectWorkType"  class="form-select" th:value="${taskModel?.jobType}" name="jobType" readonly>
+        <p>
+            <input class="comment" type="text" name="comment" placeholder="Комментарий" th:value="${taskModel?.comment}" readonly>
+        </p>
+
+    </form>
+
+
+</div>

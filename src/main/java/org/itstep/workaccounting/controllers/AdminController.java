@@ -16,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +57,7 @@ public class AdminController {
                 roles.add(StaticConfig.ROLE_MANAGER);
             var dbUser = new DbUser(userModel.getEmail(), userModel.getPassword(), userModel.getFullName(), roles);
             userService.registerUser(dbUser);
-            return "redirect:/admin/users-list";
+            return "redirect:/admin/users";
         }
         else if(userService.getUser(userModel.getEmail()) != null){
             return "redirect:/admin/register?error=2";
@@ -95,23 +97,21 @@ public class AdminController {
     }
 
     @PostMapping(value="add-task")
-    public String addTask(@ModelAttribute TaskModel taskModel){
+    public String addTask(@ModelAttribute TaskModel taskModel) throws ParseException {
         if(taskModel!=null){
             WorkProject project = projectService.getProject(taskModel.getProject_id());
             if(project!=null){
-                var task = new Task(taskModel.getName(), taskModel.getDescription(), "todo", userService.getUser(taskModel.getUser_id()));
+                var task = new Task(taskModel.getName(), taskModel.getDescription(), "todo", new SimpleDateFormat("yyyy-MM-dd").parse(taskModel.getDeadline()), project, userService.getUser(taskModel.getUser_id()));
                 taskService.addTask(task);
-                project.getTasks().add(task);
-                projectService.addProject(project);
             }
             return "redirect:/admin/";
         }
         else{
-            return "redirect:/admin/project-create?error";
+            return "redirect:/admin/project-create?error=1";
         }
     }
 
-    @GetMapping("/users-list")
+    @GetMapping("users")
     public String getAllUsers(Model model,
                                 @RequestParam(defaultValue = "0") Integer pageNO,
                                 @RequestParam(defaultValue = "5") Integer pageSize){

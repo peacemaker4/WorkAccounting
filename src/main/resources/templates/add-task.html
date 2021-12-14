@@ -19,6 +19,10 @@
                     <textarea class="form-control" th:field="*{description}" aria-label="Description"></textarea>
                 </div>
                 <div class="mb-3">
+                    <label for="inputDeadline" class="form-label">Deadline</label>
+                    <input type="date" th:field="*{deadline}" name="deadline" class="form-control" id="inputDeadline"  required>
+                </div>
+                <div class="mb-3">
                     <label for="selectProject" class="form-label">Project</label>
                     <select  id="selectProject" class="form-select" aria-label="Default select example" name="project_id" >
                         <option th:each="prj : ${projects}" th:value="${prj.id}" th:text="${prj.name} + ' [' + ${prj.id} + ']'"></option>
